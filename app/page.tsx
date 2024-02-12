@@ -1,11 +1,18 @@
-'use client';
-import * as React from "react"
 import {
   RegisterLink, 
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
+import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const {
+    isAuthenticated
+  } = getKindeServerSession();
+
+  if(await isAuthenticated()) {
+    redirect('/dashboard')
+  }
   return (
     <main>
       <section className="flex items-center justify-center bg-background h-[80vh]">
