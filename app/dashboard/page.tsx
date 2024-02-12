@@ -46,12 +46,7 @@ export default async function page() {
 
     const { getUser } = getKindeServerSession();
     const user = await getUser();
-    const notesData = await getData(user?.id as string) || {
-        Notes: [],
-        subscriptions:{
-            status: null
-        }
-    };
+    const notesData = await getData(user?.id as string);
 
     // if(notesData?.subscriptions?.status != 'active'){
     //     redirect('/dashboard/billing')
@@ -63,7 +58,7 @@ export default async function page() {
                     <h1 className='text-3xl md:text-4xl font-semibold tracking-tight'>Your Notes</h1>
                     <p className='text-muted-foreground px-1'>Here you can see and create new Notes</p>
                 </div>
-                {notesData?.Notes?.length != 0 && notesData?.Notes?.length > 3 && notesData?.subscriptions?.status != 'active' ? (
+                {notesData?.Notes?.length > 3 && notesData?.subscriptions?.status != 'active' ? (
                     <Button asChild>
                         <Link href='/dashboard/billing'>Upgrade your plan</Link>
                     </Button>
@@ -80,15 +75,15 @@ export default async function page() {
                     </div>
                     <h1 className='mt-4 text-lg font-semibold'>You dont have any notes</h1>
                     <p className='mt-1 text-sm text-muted-foreground mb-4 text-center'>Please create some so that you can see them rigth here.</p>
-                    {notesData?.Notes?.length != 0 && notesData?.Notes?.length > 3 && notesData?.subscriptions?.status != 'active' ? (
+                    {notesData?.Notes?.length > 3 && notesData?.subscriptions?.status != 'active' ? (
                     <Button asChild>
                         <Link href='/dashboard/billing'>Upgrade your plan</Link>
                     </Button>
-                ):(
-                    <Button asChild>
-                    <Link href='/dashboard/new'>Create a new Note</Link>
-                    </Button>
-                )}
+                    ):(
+                        <Button asChild>
+                        <Link href='/dashboard/new'>Create a new Note</Link>
+                        </Button>
+                    )}
                 
                 </div>
             ):(
