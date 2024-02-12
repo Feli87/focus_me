@@ -12,7 +12,7 @@ Empezando:
 
 ## Primero configura las variables de entorno .env
 
-Primero, ejecuta el servidor de desarrollo:
+Despues, ejecuta el servidor de desarrollo:
 
 ```bash
 npm run dev
